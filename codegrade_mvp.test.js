@@ -129,6 +129,7 @@ describe('server.js', () => {
     beforeEach(async () => {
       await db('projects').insert(projectA)
       await db('projects').insert(projectB)
+      await db('projects').insert(projectC)
       await db('tasks').insert(taskA)
       await db('tasks').insert(taskB)
       await db('tasks').insert(taskC)
@@ -163,12 +164,12 @@ describe('server.js', () => {
           project_description: 'Build APIs',
         })
         expect(res.body[1]).toMatchObject({
-          project_name: 'Web API',
-          project_description: 'Build APIs',
-        })
-        expect(res.body[2]).toMatchObject({
           project_name: 'Databases',
           project_description: 'Learn SQL',
+        })
+        expect(res.body[2]).toMatchObject({
+          project_name: 'Authentication',
+          project_description: null,
         })
       }, 750)
     })
