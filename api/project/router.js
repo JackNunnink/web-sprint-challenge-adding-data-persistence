@@ -15,12 +15,15 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    projectModel.createProject()
+    const project = req.body
+
+    projectModel.createProject(project)
         .then(project => {
-            console.log(project)
-            res.status(201).json(project)
+            res.status(201).json({ ...project, project_completed: project.project_completed === 1 })
         })
-        .catch(next);
+        .catch(err => {
+            next(err)
+        });
 });
 
 module.exports = router;
